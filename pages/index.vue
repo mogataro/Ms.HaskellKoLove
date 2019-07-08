@@ -15,6 +15,8 @@ export default {
     ...mapGetters('population', ['getPopulation', 'getPopulationId'])
   },
   methods: {
+    // ...mapActions('prefectures', ['fetchPrefectures']),
+    // ...mapActions('population', ['fetchPopulation']),
     async onClick() {
       const data = await this.$axios
         .get('v1/population/society/forArea?prefCode=13', {
