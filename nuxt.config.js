@@ -4,6 +4,9 @@ const API_KEY = process.env.API_KEY
 
 export default {
   mode: 'spa',
+  router: {
+    middleware: ['index']
+  },
   /*
    ** Headers of the page
    */
@@ -39,10 +42,13 @@ export default {
   axios: {
     proxy: true,
     browserBaseURL: 'https://opendata.resas-portal.go.jp/api',
-    credentials: true,
+    // credentials: true,
     init: axios => {
       axios.defaults.xsrfHeaderName = 'X-XSRF-TOKEN'
     }
+  },
+  proxy: {
+    '/api/': { target: 'http:localhost:3000', pathRewrite: { '^/api/': '/' } }
   },
   /*
    ** Build configuration
