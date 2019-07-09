@@ -34,7 +34,10 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ['~/plugins/axios'],
+  plugins: [
+    '~/plugins/axios',
+    { src: '~/plugins/vue-highcharts.js', ssr: false }
+  ],
   /*
    ** Nuxt.js modules
    */

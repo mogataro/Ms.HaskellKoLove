@@ -1,37 +1,44 @@
 <template lang="pug">
 section.index
-  p(@click="onClick") あああ
-  //- p {{getPrefectureId(2)}}
-  //- p {{getPrefectures}}
-  p {{getPopulationId(1)}}
+  label(
+    v-for="(prefecture, index) in getPrefectures"
+    :key="index"
+  )
+    input(
+      type="checkbox"
+      name="prefCode"
+      :value="prefecture.prefCode"
+      v-model="prefCodes"
+      @change="onChange()"
+    )
+    span {{prefecture.prefName}}
+  Graph(:prefCodes="prefCodes")
 </template>
 
 <script>
 import { mapMutations, mapGetters, mapActions } from 'vuex'
+import Graph from '@/components/Graph'
 
 export default {
+  components: {
+    Graph
+  },
+  data() {
+    return {
+      prefCodes: []
+    }
+  },
   computed: {
-    ...mapGetters('prefectures', ['getPrefectures', 'getPrefectureId']),
-    ...mapGetters('population', ['getPopulation', 'getPopulationId'])
+    ...mapGetters(['getPrefectures', 'getPrefectureId'])
+  },
+  mounted() {
+    // this.fetchPopulation()
   },
   methods: {
     // ...mapActions('prefectures', ['fetchPrefectures']),
     // ...mapActions('population', ['fetchPopulation']),
-    async onClick() {
-      const data = await this.$axios
-        .get('v1/population/society/forArea?prefCode=13', {
-          headers: {
-            'X-API-KEY': process.env.API_KEY
-          },
-          data: {}
-        })
-        .then(res => {
-          return { datas: res.data }
-        })
-        .catch(e => {
-          console.log(e)
-        })
-      console.log(data)
+    onChange() {
+      // console.log(this.prefCodes)
     }
   }
 }

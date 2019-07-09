@@ -9,4 +9,5 @@ export default {
 </script>
 <style lang="sass" scoped>
 #wrap
+  height: 100%
 </style>
