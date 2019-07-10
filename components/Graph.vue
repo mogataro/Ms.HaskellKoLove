@@ -33,9 +33,8 @@ export default {
     options() {
       return {
         chart: {
-          type: 'line',
-          backgroundColor: 'transparent',
-          borderColor: '#EEEEEEE'
+          type: 'spline',
+          backgroundColor: 'transparent'
         },
         title: {
           text: ''
@@ -49,7 +48,9 @@ export default {
           title: {
             text: '年度(年)'
           },
-          categories: this.getAllYears
+          type: 'datetime',
+          categories: this.getAllYears,
+          lineWidth: 2
         },
         yAxis: {
           title: {
@@ -59,7 +60,8 @@ export default {
             formatter: function() {
               return this.value.toLocaleString()
             }
-          }
+          },
+          lineWidth: 2
         },
         legend: {
           layout: 'vertical',
