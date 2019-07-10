@@ -12,9 +12,9 @@ export const getters = {
   getAllYears(state) {
     return state.allYears
   },
-  // 総人口の全ての都道府県データを配列で返す
-  getPopulation(state) {
-    return state.japanPopulation
+  // 総人口の全ての都道府県データの配列数を返す
+  getPopulationLength(state) {
+    return state.japanPopulation.length
   },
   // postCodeを引数にすると、該当の都道府県の総人口データの年配列を返す
   getPopulationYearId: state => id => {
@@ -71,8 +71,10 @@ export const actions = {
         prefPopulationYear: prefPopulationYear,
         prefPopulationValue: prefPopulationValue
       }
-      commit('initAllYears', prefPopulationYear)
       commit('initPopulation', result)
+      if (n === 47) {
+        commit('initAllYears', prefPopulationYear)
+      }
       if (n > 1) {
         abc(n - 1)
       }

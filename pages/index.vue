@@ -1,36 +1,38 @@
 <template lang="pug">
 section.index
-  label(
-    v-for="(prefecture, index) in getPrefectures"
-    :key="index"
-  )
-    input(
-      type="checkbox"
-      name="prefCode"
-      :value="prefecture.prefCode"
-      v-model="prefCodes"
-    )
-    span {{prefecture.prefName}}
+  Loading
+  CheckboxList(:prefCodes="prefCodes" @updatePrefCodes="updatePrefCodes")
   Graph(:prefCodes="prefCodes")
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 import Graph from '@/components/Graph'
+import CheckboxList from '@/components/CheckboxList'
+import Loading from '@/components/Loading'
 
 export default {
   components: {
-    Graph
+    Graph,
+    CheckboxList,
+    Loading
   },
   data() {
     return {
       prefCodes: []
     }
   },
-  computed: {
-    ...mapGetters('prefectures', ['getPrefectures'])
+  methods: {
+    updatePrefCodes(newPrefCodes) {
+      this.prefCodes = newPrefCodes
+    }
   }
 }
 </script>
 
-<style></style>
+<style lang="sass" scoped>
+.index
+  position: relative
+  width: 100%
+  heidth: 100%
+  min-height: 100vh
+</style>
