@@ -47,13 +47,13 @@ export default {
             }
           },
           title: {
-            text: '年度'
+            text: '年度(年)'
           },
           categories: this.getAllYears
         },
         yAxis: {
           title: {
-            text: '人口数'
+            text: '人口数(人)'
           },
           labels: {
             formatter: function() {
@@ -62,10 +62,9 @@ export default {
           }
         },
         legend: {
-          //グラフの凡例
-          layout: 'vertical', //縦方向に並べる
-          align: 'right', //グラフの右に表示（左右中央）
-          verticalAlign: 'top' //グラフの中央に表示（上下中央）
+          layout: 'vertical',
+          align: 'right',
+          verticalAlign: 'top'
         },
         tooltip: {
           crosshairs: true,
@@ -89,15 +88,6 @@ export default {
         },
         credits: {
           enabled: false
-        },
-        plotOptions: {
-          // spline: {
-          //   marker: {
-          //     radius: 4,
-          //     lineColor: '#666666',
-          //     lineWidth: 1
-          //   }
-          // }
         },
         series: []
       }

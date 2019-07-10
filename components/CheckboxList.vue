@@ -53,4 +53,5 @@ export default {
     display: inline-block
     &:hover
       color: darkGreen
+      cursor: pointer
 </style>
