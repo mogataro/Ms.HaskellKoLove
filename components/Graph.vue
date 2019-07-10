@@ -63,10 +63,21 @@ export default {
           },
           lineWidth: 2
         },
-        legend: {
-          layout: 'vertical',
-          align: 'right',
-          verticalAlign: 'top'
+        responsive: {
+          rules: [
+            {
+              condition: {
+                maxheight: 400
+              },
+              chartOptions: {
+                legend: {
+                  layout: 'vertical',
+                  align: 'right',
+                  verticalAlign: 'top'
+                }
+              }
+            }
+          ]
         },
         tooltip: {
           crosshairs: true,
