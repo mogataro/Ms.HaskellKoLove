@@ -1,14 +1,17 @@
 <template lang="pug">
 .graph
-  p {{prefCodes}}
-  VueHighcharts(:options="lineData")
+  VueHighcharts(
+    :options="options"
+    ref="lineCharts"
+  )
+  button(@click="load") load
+  button(@click="reload") reload
 </template>
 <script>
-import sapporo_2018 from '@/static/sapporo_2018.json'
-import { mapMutations, mapGetters, mapActions } from 'vuex'
+import { mapGetters } from 'vuex'
+import pop from '@/static/pop.json'
 
 export default {
-  name: 'Graph',
   props: {
     prefCodes: {
       type: Array,
@@ -19,159 +22,89 @@ export default {
   },
   data() {
     return {
-      initLinedata: null,
-      lineData: null
-    }
-  },
-  computed: {
-    ...mapGetters([
-      'getPrefectureId',
-      'getAllYears',
-      'getPopulation',
-      'getPopulationYearId',
-      'getPopulationValueId'
-    ])
-  },
-  watch: {
-    prefCodes(newPref, oldPref) {
-      // this.lineData = this.setLineData(newPref)
-    }
-  },
-  mounted() {
-    this.initLineData()
-  },
-  methods: {
-    seriesObject(prefCode) {
-      return {
-        name: this.getPrefectureId(prefCode),
-        data: this.getPopulationValueId(prefCode)
-      }
-    },
-    seriesArray(prefCodes) {
-      let array = []
-      // prefCodes.forEach(prefCode => {
-      //   array.push(this.seriesObject(prefCode))
-      // })
-      for (let i = 1; i <= 47; i++) {
-        // if (prefCodes.indexOf(i) >= 0) {
-        array.push(this.seriesObject(i))
-        // }
-      }
-      console.log(array)
-      return array
-    },
-    allSeriesArray() {
-      let array = []
-      for (let i = 1; i <= 47; i++) {
-        array.push(this.seriesObject(i))
-      }
-      return array
-    },
-    initLineData() {
-      this.lineData = this.setLineData()
-    },
-    setLineData(newPref) {
-      let lineData = {
+      pop: pop,
+      options: {
         chart: {
+          type: 'line',
           backgroundColor: 'transparent',
-          borderColor: '#EEEEEEE',
-          minHeight: '500px',
-          spacingRight: 20,
-          type: 'line'
+          borderColor: '#EEEEEEE'
         },
         title: {
-          align: 'left',
-          margin: 24,
-          style: {
-            fontSize: '16px'
-          },
-          text: 'Title',
-          x: 0
+          text: 'Monthly Average Temperature'
         },
-        legend: {
-          align: 'right',
-          itemStyle: {
-            color: '#0066FF'
-          },
-          layout: 'vertical',
-          symbolWidth: 40,
-          verticalAlign: 'top',
-          useHTML: true,
-          enabled: true,
-          navigation: {
-            enabled: false
-          }
-        },
-        plotOptions: {
-          series: {
-            events: {
-              legendItemClick() {
-                return true
-              }
-            }
-          }
-        },
-        credits: {
-          enabled: false
+        subtitle: {
+          text: 'Source: WorldClimate.com'
         },
         xAxis: {
           categories: this.getAllYears,
-          endOnTick: true,
-          labels: {
-            style: {
-              fontSize: '12px'
-            }
-          },
-          // x軸のいろ
-          lineColor: '#CCCCCC',
-          lineWidth: 1,
-          maxPadding: 0,
-          minPadding: 0,
-          startOnTick: true,
-          tickLength: 0,
-          tickInterval: 1,
           title: {
             text: '年度'
           }
         },
         yAxis: {
-          gridLineColor: '#CCCCCC',
-          labels: {
-            style: {
-              fontSize: '12px'
-            }
-          },
-          // y軸のいろ
-          lineColor: '#CCCCCC',
-          lineWidth: 1,
           title: {
             text: '人口数'
+          },
+          labels: {
+            formatter: function() {
+              return this.value.toLocaleString()
+            }
+          }
+        },
+        tooltip: {
+          crosshairs: true,
+          shared: true
+        },
+        credits: {
+          enabled: false
+        },
+        plotOptions: {
+          spline: {
+            marker: {
+              radius: 4,
+              lineColor: '#666666',
+              lineWidth: 1
+            }
           }
         },
         series: []
       }
-      this.$set(lineData, 'series', this.allSeriesArray())
-      console.log(lineData.series)
-      return lineData
     }
-    // dataOptions(type, options) {
-    //   const selected = type == options.type
-    //   const color = selected ? '#0066FF' : 'gray'
-    //   return {
-    //     color,
-    //     data: this.categories[type].data,
-    //     lineWidth: selected ? 3 : 1,
-    //     marker: {
-    //       enabled: true,
-    //       fillColor: color,
-    //       radius: 6,
-    //       symbol: 'circle'
-    //     },
-    //     name: this.categories[type].name,
-    //     showInLegend: true,
-    //     zIndex: selected ? 1 : 0
-    //   }
-    // },
+  },
+  computed: {
+    ...mapGetters('population', ['getAllYears', 'getPopulationValueId']),
+    ...mapGetters('prefectures', ['getPrefectureId']),
+    asyncDatas() {
+      let result = []
+      this.prefCodes.forEach(prefCode => {
+        result.push({
+          data: this.getPopulationValueId(prefCode),
+          name: this.getPrefectureId(prefCode)
+        })
+      })
+      return result
+    }
+  },
+  watch: {
+    prefCodes(newPrefArray, oldPrefArray) {
+      this.load()
+    }
+  },
+  methods: {
+    async load() {
+      let lineCharts = this.$refs.lineCharts
+      await lineCharts.delegateMethod('showLoading', 'Loading...')
+      lineCharts.removeSeries()
+      this.asyncDatas.forEach(item => {
+        lineCharts.addSeries(item)
+      })
+      // lineCharts.addSeries(asyncData)
+      lineCharts.hideLoading()
+    },
+    reload() {
+      let lineCharts = this.$refs.lineCharts
+      lineCharts.removeSeries()
+    }
   }
 }
 </script>

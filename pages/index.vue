@@ -9,14 +9,13 @@ section.index
       name="prefCode"
       :value="prefecture.prefCode"
       v-model="prefCodes"
-      @change="onChange()"
     )
     span {{prefecture.prefName}}
   Graph(:prefCodes="prefCodes")
 </template>
 
 <script>
-import { mapMutations, mapGetters, mapActions } from 'vuex'
+import { mapGetters } from 'vuex'
 import Graph from '@/components/Graph'
 
 export default {
@@ -29,17 +28,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['getPrefectures', 'getPrefectureId'])
-  },
-  mounted() {
-    // this.fetchPopulation()
-  },
-  methods: {
-    // ...mapActions('prefectures', ['fetchPrefectures']),
-    // ...mapActions('population', ['fetchPopulation']),
-    onChange() {
-      // console.log(this.prefCodes)
-    }
+    ...mapGetters('prefectures', ['getPrefectures'])
   }
 }
 </script>
