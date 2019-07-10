@@ -41,7 +41,7 @@ export default {
   p
     font-size: 30px
     line-height: 30px
-    margin: 20px 0
+    margin: 10px 0
     border: 1px solid gray
     border-radius: 4px
     width: 150px
