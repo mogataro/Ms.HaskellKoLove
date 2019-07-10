@@ -133,7 +133,5 @@ export default {
 </script>
 <style lang="sass" scoped>
 .graph
-  #chartdiv
-    width: 100%
-    height: 500px
+  margin-top: 10px
 </style>

@@ -1,6 +1,7 @@
 <template lang="pug">
 section.index
   Loading
+  Title
   CheckboxList(:prefCodes="prefCodes" @updatePrefCodes="updatePrefCodes")
   Graph(:prefCodes="prefCodes")
 </template>
@@ -9,12 +10,14 @@ section.index
 import Graph from '@/components/Graph'
 import CheckboxList from '@/components/CheckboxList'
 import Loading from '@/components/Loading'
+import Title from '@/components/Title'
 
 export default {
   components: {
     Graph,
     CheckboxList,
-    Loading
+    Loading,
+    Title
   },
   data() {
     return {
