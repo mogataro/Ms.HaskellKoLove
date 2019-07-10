@@ -9,7 +9,6 @@
 </template>
 <script>
 import { mapGetters } from 'vuex'
-import pop from '@/static/pop.json'
 
 export default {
   props: {
@@ -22,7 +21,6 @@ export default {
   },
   data() {
     return {
-      pop: pop,
       options: {
         chart: {
           type: 'line',
