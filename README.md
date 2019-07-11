@@ -1,5 +1,8 @@
 # 都道府県別の総人口推移グラフ
 
+# demoページ(今後削除する場合があります)
+https://mogataro.com/application/population-graph/
+
 ## 準備
 
 RESAS APIの「都道府県一覧」からAPIを取得しています。  
