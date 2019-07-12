@@ -1,6 +1,7 @@
 <template lang="pug">
 section.index
-  Loading
+  InitLoading
+  GraphLoading(v-if="isGraphLoad")
   Title
   CheckboxList(:prefCodes="prefCodes" @updatePrefCodes="updatePrefCodes")
   Graph(:prefCodes="prefCodes")
@@ -9,24 +10,30 @@ section.index
 <script>
 import Graph from '@/components/Graph'
 import CheckboxList from '@/components/CheckboxList'
-import Loading from '@/components/Loading'
+import InitLoading from '@/components/InitLoading'
+import GraphLoading from '@/components/GraphLoading'
 import Title from '@/components/Title'
 
 export default {
   components: {
     Graph,
     CheckboxList,
-    Loading,
-    Title
+    InitLoading,
+    Title,
+    GraphLoading
   },
   data() {
     return {
-      prefCodes: []
+      prefCodes: [],
+      isGraphLoad: false
     }
   },
   methods: {
     updatePrefCodes(newPrefCodes) {
       this.prefCodes = newPrefCodes
+    },
+    graphLoad(isGraphLoad) {
+      this.isGraphLoad = isGraphLoad
     }
   }
 }

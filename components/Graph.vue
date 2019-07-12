@@ -117,8 +117,8 @@ export default {
   methods: {
     async load() {
       let lineCharts = this.$refs.lineCharts
-      lineCharts.delegateMethod('showLoading', 'Loading...')
       lineCharts.removeSeries()
+      lineCharts.delegateMethod('showLoading', 'Loading...')
       await this.asyncDatas.forEach(item => {
         lineCharts.addSeries(item)
       })
@@ -129,7 +129,11 @@ export default {
       lineCharts.delegateMethod('showLoading', 'Loading...')
       await lineCharts.addSeries([])
       await lineCharts.removeSeries()
-      await lineCharts.hideLoading()
+      lineCharts.hideLoading()
+    },
+    delete() {
+      let lineCharts = this.$refs.lineCharts
+      lineCharts.removeSeries()
     }
   }
 }
