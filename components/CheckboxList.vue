@@ -1,9 +1,7 @@
 <template lang="pug">
 .checkbox-list
-  div
-    p 都道府県
-    button(@click="allChecked") 一括選択
-    button(@click="allAnChecked") 一括削除
+  p 都道府県
+    //- button(@click="allChecked") 一括選択
   label.checkbox-item(
     v-for="(prefecture, index) in getPrefectures"
     :key="index"
@@ -15,6 +13,7 @@
       v-model="prefCodes"
     )
     span {{prefecture.prefName}}
+  button.btn(@click="allAnChecked") 一括削除
 </template>
 
 <script>
@@ -66,6 +65,18 @@ export default {
     border-radius: 4px
     width: 150px
     text-align: center
+  .btn
+    width: 80px
+    margin-right: 20px
+    text-align: center
+    border: 1px solid gray
+    border-radius: 4px
+    font-family: "Hiragino Kaku Gothic ProN"
+    font-size: 14px
+    line-height: 16px
+    &:hover
+      background: rgba(#FBFBFB, 0.7)
+      color: darkGreen
   .checkbox-item
     width: 100px
     height: 24px
