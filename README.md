@@ -10,7 +10,7 @@
 - components/Graph.vueのcomputedのoptionsが長い
 - チェック時の状態変更はemitでなくstore経由でやる
 - 人口データ取得はmiddlewareでやるべきでなく、pagesのmountedでやる
-- reset.cssが少し古い(npm install Normalize.cssを使う)
+- reset.cssが古い(npm install Normalize.cssを使う)
 
 ## 準備
 
