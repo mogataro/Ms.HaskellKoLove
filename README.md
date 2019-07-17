@@ -6,8 +6,8 @@
 - チェックボック一覧のデザインに窮屈さを感じるので修正する
 - UIが古臭い(VuetifyやVuesax、material-uiなどを使う)
 - components/Graph.vueのcomputedのoptionsが長い
-- チェック時の状態変更はemitでなくstore経由でやる
-- 人口データ取得はmiddlewareでやるべきでなく、pagesのmountedでやる
+- チェック時の状態変更はemitでなくstore経由でやる OK
+- 人口データ取得はmiddlewareでやるべきでなく、pagesのmountedでやる OK
 - reset.cssが古い(npm install Normalize.cssを使う) OK ress.cssを使用
 
 ## 準備

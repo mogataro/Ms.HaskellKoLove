@@ -4,9 +4,6 @@ const API_KEY = process.env.API_KEY
 
 export default {
   mode: 'spa',
-  router: {
-    middleware: ['index']
-  },
   /*
    ** Headers of the page
    */

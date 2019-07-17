@@ -9,20 +9,12 @@
 import { mapGetters } from 'vuex'
 
 export default {
-  props: {
-    prefCodes: {
-      type: Array,
-      default() {
-        return []
-      }
-    }
-  },
   computed: {
     ...mapGetters('population', ['getAllYears', 'getPopulationValueId']),
-    ...mapGetters('prefectures', ['getPrefectureId']),
+    ...mapGetters('prefectures', ['getPrefectureId', 'getPrefCodes']),
     asyncDatas() {
       let result = []
-      this.prefCodes.forEach(prefCode => {
+      this.getPrefCodes.forEach(prefCode => {
         result.push({
           data: this.getPopulationValueId(prefCode),
           name: this.getPrefectureId(prefCode)
@@ -107,7 +99,7 @@ export default {
     }
   },
   watch: {
-    prefCodes(newPrefArray, oldPrefArray) {
+    getPrefCodes(newPrefArray, oldPrefArray) {
       this.load()
     }
   },

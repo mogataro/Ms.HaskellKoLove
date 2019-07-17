@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'CheckboxList',
@@ -29,8 +29,11 @@ export default {
   },
   watch: {
     prefCodes(newPrefCodes, oldPrefCodes) {
-      this.$emit('updatePrefCodes', newPrefCodes)
+      this.actionUpdatePrefCodes(newPrefCodes)
     }
+  },
+  methods: {
+    ...mapActions('prefectures', ['actionUpdatePrefCodes'])
   }
 }
 </script>

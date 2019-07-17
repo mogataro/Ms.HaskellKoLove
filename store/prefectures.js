@@ -1,7 +1,8 @@
 import { cloneDeep } from 'lodash'
 
 const initialState = {
-  prefectures: []
+  prefectures: [],
+  prefCodes: []
 }
 
 export const state = () => cloneDeep(initialState)
@@ -17,6 +18,10 @@ export const getters = {
       prefecture => prefecture.prefCode === id
     )
     return !!prefecture ? prefecture.prefName : ''
+  },
+  // チェックボックスでチェックのついている都道府県コードを返す
+  getPrefCodes(state) {
+    return state.prefCodes
   }
 }
 
@@ -26,6 +31,13 @@ export const mutations = {
       state = Object.assign(state, initialState)
     } else {
       state.prefectures = payload
+    }
+  },
+  mutationUpdatePrefCodes(state, payload) {
+    if (payload === null) {
+      state = Object.assign(state, initialState)
+    } else {
+      state.prefCodes = payload
     }
   }
 }
@@ -38,5 +50,8 @@ export const actions = {
       }
     })
     commit('initPrefectures', data.result)
+  },
+  actionUpdatePrefCodes({ commit }, newPrefCodes) {
+    commit('mutationUpdatePrefCodes', newPrefCodes)
   }
 }

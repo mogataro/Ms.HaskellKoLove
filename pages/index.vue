@@ -2,8 +2,8 @@
 section.index
   Loading
   Title
-  CheckboxList(:prefCodes="prefCodes" @updatePrefCodes="updatePrefCodes")
-  Graph(:prefCodes="prefCodes")
+  CheckboxList
+  Graph
 </template>
 
 <script>
@@ -11,6 +11,7 @@ import Graph from '@/components/Graph'
 import CheckboxList from '@/components/CheckboxList'
 import Loading from '@/components/Loading'
 import Title from '@/components/Title'
+import { mapActions } from 'vuex'
 
 export default {
   components: {
@@ -19,15 +20,13 @@ export default {
     Loading,
     Title
   },
-  data() {
-    return {
-      prefCodes: []
-    }
+  mounted() {
+    this.fetchPopulation()
+    this.fetchPrefectures()
   },
   methods: {
-    updatePrefCodes(newPrefCodes) {
-      this.prefCodes = newPrefCodes
-    }
+    ...mapActions('population', ['fetchPopulation']),
+    ...mapActions('prefectures', ['fetchPrefectures'])
   }
 }
 </script>
