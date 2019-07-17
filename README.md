@@ -1,5 +1,17 @@
 # 都道府県別の総人口推移グラフ
 
+## 修正予定
+- タイトルをつける
+-  yarn devすると ERROR  fsevents.watch is not a function が表示される
+- チェックボック一覧のデザインに窮屈さを感じるので修正する
+- UIが古臭い(VuetifyやVuesax、material-uiなどを使う)
+- コメントアウトコードが多く、それがgithubのコミット差分から見れるのはだめ
+- コミットの粒度が曖昧
+- components/Graph.vueのcomputedのoptionsが長い
+- チェック時の状態変更はemitでなくstore経由でやる
+- 人口データ取得はmiddlewareでやるべきでなく、pagesのmountedでやる
+- reset.cssが少し古い(npm install Normalize.cssを使う)
+
 ## 準備
 
 RESAS APIの「都道府県一覧」からAPIを取得しています。  
