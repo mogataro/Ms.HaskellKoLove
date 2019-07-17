@@ -23,8 +23,7 @@ export default {
   },
   computed: {
     ...mapGetters('population', ['getPopulationLength'])
-  },
-  watch: {}
+  }
 }
 </script>
 
