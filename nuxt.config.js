@@ -4,6 +4,9 @@ const API_KEY = process.env.API_KEY
 
 export default {
   mode: 'spa',
+  router: {
+    base: '/application/population-graph'
+  },
   /*
    ** Headers of the page
    */
