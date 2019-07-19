@@ -38,7 +38,21 @@ export default {
   /*
    ** Nuxt.js modules
    */
-  modules: ['@nuxtjs/axios', '@nuxtjs/dotenv', '@nuxtjs/style-resources'],
+  modules: [
+    '@nuxtjs/axios',
+    '@nuxtjs/dotenv',
+    '@nuxtjs/style-resources',
+    '@nuxtjs/vuetify'
+  ],
+  vuetify: {
+    // Vuetify の設定はここに書く
+    theme: {
+      primary: '#3f51b5',
+      secondary: '#5cbbf6',
+      accent: '#8c9eff',
+      error: '#b71c1c'
+    }
+  },
   axios: {
     proxy: true,
     browserBaseURL: 'https://opendata.resas-portal.go.jp/api',

@@ -1,17 +1,16 @@
 <template lang="pug">
 .checkbox-list
   p 都道府県
-  label.checkbox-item(
-    v-for="(prefecture, index) in getPrefectures"
-    :key="index"
-  )
-    input(
-      type="checkbox"
-      name="prefCode"
-      :value="prefecture.prefCode"
+  .checkbox-box
+    v-checkbox.checkbox-item(
+      v-for="(prefecture, index) in getPrefectures"
+      :key="index"
       v-model="prefCodes"
+      :label="prefecture.prefName"
+      name="prefCode"
+      color="#5cbbf6"
+      :value="prefecture.prefCode"
     )
-    span {{prefecture.prefName}}
 </template>
 
 <script>
@@ -41,6 +40,11 @@ export default {
 <style lang="sass" scoped>
 .checkbox-list
   padding: 0 25px
+  .checkbox-box
+    border: 1px solid gray
+    max-height: 135px
+    border-radius: 4px
+    overflow-y: auto
   p
     font-size: 30px
     line-height: 30px
@@ -54,7 +58,4 @@ export default {
     height: 24px
     line-height: 24px
     display: inline-block
-    &:hover
-      color: darkGreen
-      cursor: pointer
 </style>
